@@ -1,0 +1,11 @@
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/controller/ChatbotController.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/repository/UserRepository.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/entity/Role.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/dto/MessageRequest.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/ElitecomBackendApplication.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/entity/User.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/security/JwtUtils.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/config/SecurityConfig.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/config/DataInitializer.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/controller/AuthController.java
+/home/aitronix/Downloads/elitecom-backend/src/main/java/com/elitecom/backend/service/ChatbotService.java

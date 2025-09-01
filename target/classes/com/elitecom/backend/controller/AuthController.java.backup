@@ -1,0 +1,74 @@
+package com.elitecom.backend.controller;
+
+import com.elitecom.backend.entity.User;
+import com.elitecom.backend.repository.UserRepository;
+import com.elitecom.backend.security.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/auth")
+@CrossOrigin(origins = "*")
+public class AuthController {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private JwtUtils jwtUtils;
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String password = request.get("password");
+        
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "User not found"));
+        }
+        
+        User user = userOpt.get();
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid password"));
+        }
+        
+        String token = jwtUtils.generateJwtToken(email);
+        return ResponseEntity.ok(Map.of(
+            "token", token,
+            "user", Map.of(
+                "id", user.getId(),
+                "email", user.getEmail(),
+                "firstName", user.getFirstName(),
+                "lastName", user.getLastName(),
+                "role", user.getRole()
+            )
+        ));
+    }
+    
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        
+        if (userRepository.existsByEmail(email)) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Email already exists"));
+        }
+        
+        User user = new User();
+        user.setFirstName(request.get("firstName"));
+        user.setLastName(request.get("lastName"));
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(request.get("password")));
+        user.setRole(User.Role.valueOf(request.getOrDefault("role", "CLIENT")));
+        
+        userRepository.save(user);
+        
+        return ResponseEntity.ok(Map.of("message", "User registered successfully"));
+    }
+}
