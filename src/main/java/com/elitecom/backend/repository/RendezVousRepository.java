@@ -12,17 +12,17 @@ import java.util.List;
 @Repository
 public interface RendezVousRepository extends JpaRepository<RendezVous, Long> {
     
-    List<RendezVous> findByPatientId(Long patientId);
+    List<RendezVous> findByClientId(Long clientId);
     
-    List<RendezVous> findByPracticianId(Long practicianId);
+    List<RendezVous> findByPractitionerId(Long practitionerId);
     
     List<RendezVous> findByStatut(String statut);
     
-    @Query("SELECT r FROM RendezVous r WHERE r.patient.id = :patientId AND r.statut = :statut")
-    List<RendezVous> findByPatientIdAndStatut(@Param("patientId") Long patientId, @Param("statut") String statut);
+    @Query("SELECT r FROM RendezVous r WHERE r.client.id = :clientId AND r.statut = :statut")
+    List<RendezVous> findByClientIdAndStatut(@Param("clientId") Long clientId, @Param("statut") String statut);
     
-    @Query("SELECT r FROM RendezVous r WHERE r.practician.id = :practicianId AND r.statut = :statut")
-    List<RendezVous> findByPracticianIdAndStatut(@Param("practicianId") Long practicianId, @Param("statut") String statut);
+    @Query("SELECT r FROM RendezVous r WHERE r.practitioner.id = :practitionerId AND r.statut = :statut")
+    List<RendezVous> findByPractitionerIdAndStatut(@Param("practitionerId") Long practitionerId, @Param("statut") String statut);
     
     @Query("SELECT r FROM RendezVous r WHERE r.dateHeureDebut BETWEEN :startDate AND :endDate")
     List<RendezVous> findByDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);

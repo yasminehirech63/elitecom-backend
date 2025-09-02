@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "patients")
-public class Patient {
+@Table(name = "clients")
+public class Client {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,19 +19,19 @@ public class Patient {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RendezVous> rendezVous;
     
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Paiement> paiements;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
     
     // Constructors
-    public Patient() {}
+    public Client() {}
     
-    public Patient(String cin, User user) {
+    public Client(String cin, User user) {
         this.cin = cin;
         this.user = user;
     }

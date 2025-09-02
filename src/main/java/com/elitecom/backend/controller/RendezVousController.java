@@ -2,11 +2,11 @@ package com.elitecom.backend.controller;
 
 import com.elitecom.backend.dto.RendezVousRequest;
 import com.elitecom.backend.entity.RendezVous;
-import com.elitecom.backend.entity.Patient;
-import com.elitecom.backend.entity.Practician;
+import com.elitecom.backend.entity.Client;
+import com.elitecom.backend.entity.Practitioner;
 import com.elitecom.backend.repository.RendezVousRepository;
-import com.elitecom.backend.repository.PatientRepository;
-import com.elitecom.backend.repository.PracticianRepository;
+import com.elitecom.backend.repository.ClientRepository;
+import com.elitecom.backend.repository.PractitionerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,23 +25,23 @@ public class RendezVousController {
     private RendezVousRepository rendezVousRepository;
     
     @Autowired
-    private PatientRepository patientRepository;
+    private ClientRepository clientRepository;
     
     @Autowired
-    private PracticianRepository practicianRepository;
+    private PractitionerRepository practitionerRepository;
 
     @PostMapping
     public ResponseEntity<?> createRendezVous(@Valid @RequestBody RendezVousRequest request) {
         try {
-            Optional<Patient> patient = patientRepository.findById(request.getPatientId());
-            Optional<Practician> practician = practicianRepository.findById(request.getPracticianId());
+            Optional<Client> client = clientRepository.findById(request.getClientId());
+            Optional<Practitioner> practitioner = practitionerRepository.findById(request.getPractitionerId());
             
-            if (patient.isEmpty()) {
+            if (client.isEmpty()) {
                 return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Patient non trouvé"));
+                    .body(Map.of("error", "Client non trouvé"));
             }
             
-            if (practician.isEmpty()) {
+            if (practitioner.isEmpty()) {
                 return ResponseEntity.badRequest()
                     .body(Map.of("error", "Praticien non trouvé"));
             }
@@ -50,8 +50,8 @@ public class RendezVousController {
                 request.getDateHeureDebut(),
                 request.getType(),
                 request.getStatut(),
-                patient.get(),
-                practician.get()
+                client.get(),
+                practitioner.get()
             );
 
             RendezVous savedRendezVous = rendezVousRepository.save(rendezVous);
@@ -75,15 +75,15 @@ public class RendezVousController {
                         .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/patient/{patientId}")
-    public ResponseEntity<List<RendezVous>> getRendezVousByPatient(@PathVariable Long patientId) {
-        List<RendezVous> rendezVous = rendezVousRepository.findByPatientId(patientId);
+    @GetMapping("/client/{clientId}")
+    public ResponseEntity<List<RendezVous>> getRendezVousByClient(@PathVariable Long clientId) {
+        List<RendezVous> rendezVous = rendezVousRepository.findByClientId(clientId);
         return ResponseEntity.ok(rendezVous);
     }
 
-    @GetMapping("/practician/{practicianId}")
-    public ResponseEntity<List<RendezVous>> getRendezVousByPractician(@PathVariable Long practicianId) {
-        List<RendezVous> rendezVous = rendezVousRepository.findByPracticianId(practicianId);
+    @GetMapping("/practitioner/{practitionerId}")
+    public ResponseEntity<List<RendezVous>> getRendezVousByPractitioner(@PathVariable Long practitionerId) {
+        List<RendezVous> rendezVous = rendezVousRepository.findByPractitionerId(practitionerId);
         return ResponseEntity.ok(rendezVous);
     }
 

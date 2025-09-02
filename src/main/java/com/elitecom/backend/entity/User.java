@@ -33,6 +33,17 @@ public class User {
     private boolean isActive = true;
     private boolean isVerified = false;
     
+    // Validation fields for practitioners
+    @Enumerated(EnumType.STRING)
+    @Column(name = "validation_status")
+    private ValidationStatus validationStatus = ValidationStatus.PENDING;
+    
+    @Column(name = "validation_date")
+    private LocalDateTime validationDate;
+    
+    @Column(name = "validation_notes")
+    private String validationNotes;
+    
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
     
@@ -83,6 +94,15 @@ public class User {
     
     public boolean isVerified() { return isVerified; }
     public void setVerified(boolean verified) { isVerified = verified; }
+    
+    public ValidationStatus getValidationStatus() { return validationStatus; }
+    public void setValidationStatus(ValidationStatus validationStatus) { this.validationStatus = validationStatus; }
+    
+    public LocalDateTime getValidationDate() { return validationDate; }
+    public void setValidationDate(LocalDateTime validationDate) { this.validationDate = validationDate; }
+    
+    public String getValidationNotes() { return validationNotes; }
+    public void setValidationNotes(String validationNotes) { this.validationNotes = validationNotes; }
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

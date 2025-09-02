@@ -14,22 +14,22 @@ public class RendezVousRequest {
     @NotBlank(message = "Type is required")
     private String type;
     
-    @NotNull(message = "Patient ID is required")
-    private Long patientId;
+    @NotNull(message = "Client ID is required")
+    private Long clientId;
     
-    @NotNull(message = "Practician ID is required")
-    private Long practicianId;
+    @NotNull(message = "Practitioner ID is required")
+    private Long practitionerId;
     
     private String statut = "PENDING";
     
     // Constructors
     public RendezVousRequest() {}
     
-    public RendezVousRequest(LocalDateTime dateHeureDebut, String type, Long patientId, Long practicianId) {
+    public RendezVousRequest(LocalDateTime dateHeureDebut, String type, Long clientId, Long practitionerId) {
         this.dateHeureDebut = dateHeureDebut;
         this.type = type;
-        this.patientId = patientId;
-        this.practicianId = practicianId;
+        this.clientId = clientId;
+        this.practitionerId = practitionerId;
     }
     
     // Getters and Setters
@@ -49,20 +49,20 @@ public class RendezVousRequest {
         this.type = type;
     }
     
-    public Long getPatientId() {
-        return patientId;
+    public Long getClientId() {
+        return clientId;
     }
     
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
     
-    public Long getPracticianId() {
-        return practicianId;
+    public Long getPractitionerId() {
+        return practitionerId;
     }
     
-    public void setPracticianId(Long practicianId) {
-        this.practicianId = practicianId;
+    public void setPractitionerId(Long practitionerId) {
+        this.practitionerId = practitionerId;
     }
     
     public String getStatut() {

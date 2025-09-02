@@ -21,12 +21,12 @@ public class RendezVous {
     private String statut;
     
     @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
     
     @ManyToOne
-    @JoinColumn(name = "practician_id", nullable = false)
-    private Practician practician;
+    @JoinColumn(name = "practitioner_id", nullable = false)
+    private Practitioner practitioner;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -34,12 +34,12 @@ public class RendezVous {
     // Constructors
     public RendezVous() {}
     
-    public RendezVous(LocalDateTime dateHeureDebut, String type, String statut, Patient patient, Practician practician) {
+    public RendezVous(LocalDateTime dateHeureDebut, String type, String statut, Client client, Practitioner practitioner) {
         this.dateHeureDebut = dateHeureDebut;
         this.type = type;
         this.statut = statut;
-        this.patient = patient;
-        this.practician = practician;
+        this.client = client;
+        this.practitioner = practitioner;
     }
     
     // Getters and Setters
@@ -75,20 +75,20 @@ public class RendezVous {
         this.statut = statut;
     }
     
-    public Patient getPatient() {
-        return patient;
+    public Client getClient() {
+        return client;
     }
     
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setClient(Client client) {
+        this.client = client;
     }
     
-    public Practician getPractician() {
-        return practician;
+    public Practitioner getPractitioner() {
+        return practitioner;
     }
     
-    public void setPractician(Practician practician) {
-        this.practician = practician;
+    public void setPractitioner(Practitioner practitioner) {
+        this.practitioner = practitioner;
     }
     
     public LocalDateTime getCreatedAt() {

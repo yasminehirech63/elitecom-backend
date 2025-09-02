@@ -24,8 +24,8 @@ public class Paiement {
     private String statut;
     
     @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
     
     @OneToOne
     @JoinColumn(name = "rendez_vous_id")
@@ -37,12 +37,12 @@ public class Paiement {
     // Constructors
     public Paiement() {}
     
-    public Paiement(Double montant, LocalDateTime datePaiement, String moyen, String statut, Patient patient) {
+    public Paiement(Double montant, LocalDateTime datePaiement, String moyen, String statut, Client client) {
         this.montant = montant;
         this.datePaiement = datePaiement;
         this.moyen = moyen;
         this.statut = statut;
-        this.patient = patient;
+        this.client = client;
     }
     
     // Getters and Setters
@@ -86,12 +86,12 @@ public class Paiement {
         this.statut = statut;
     }
     
-    public Patient getPatient() {
-        return patient;
+    public Client getClient() {
+        return client;
     }
     
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setClient(Client client) {
+        this.client = client;
     }
     
     public RendezVous getRendezVous() {

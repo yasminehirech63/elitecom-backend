@@ -21,8 +21,8 @@ public class Notification {
     private Boolean lu = false;
     
     @ManyToOne
-    @JoinColumn(name = "utilisateur_id", nullable = false)
-    private User utilisateur;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -30,10 +30,10 @@ public class Notification {
     // Constructors
     public Notification() {}
     
-    public Notification(String message, LocalDateTime dateTimeEnvoi, User utilisateur) {
+    public Notification(String message, LocalDateTime dateTimeEnvoi, User user) {
         this.message = message;
         this.dateTimeEnvoi = dateTimeEnvoi;
-        this.utilisateur = utilisateur;
+        this.user = user;
     }
     
     // Getters and Setters
@@ -69,12 +69,12 @@ public class Notification {
         this.lu = lu;
     }
     
-    public User getUtilisateur() {
-        return utilisateur;
+    public User getUser() {
+        return user;
     }
     
-    public void setUtilisateur(User utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setUser(User user) {
+        this.user = user;
     }
     
     public LocalDateTime getCreatedAt() {
