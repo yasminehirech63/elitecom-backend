@@ -1,0 +1,11 @@
+# Default: normalize all text files
+* text=auto
+
+# Java & Spring Boot configs → always LF
+*.java text eol=lf
+*.properties text eol=lf
+*.yml text eol=lf
+*.xml text eol=lf
+
+# Windows batch scripts → CRLF
+*.bat text eol=crlf
