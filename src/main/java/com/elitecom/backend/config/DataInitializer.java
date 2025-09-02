@@ -3,7 +3,6 @@ package com.elitecom.backend.config;
 import com.elitecom.backend.entity.User;
 import com.elitecom.backend.entity.Role;
 import com.elitecom.backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -11,14 +10,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public DataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
+        try {
         // Check if data already exists
         if (userRepository.count() > 0) {
             System.out.println("Database already populated, skipping initialization");
@@ -64,12 +66,17 @@ public class DataInitializer implements CommandLineRunner {
             practitioner.setLastName("Practitioner");
             practitioner.setEmail(emails[i]);
             practitioner.setPassword(passwordEncoder.encode("practitioner123"));
-            practitioner.setRole(Role.PRACTITIONER);
+            practitioner.setRole(Role.PRACTICIAN);
             practitioner.setActive(true);
             userRepository.save(practitioner);
         }
 
         System.out.println("Database initialization completed!");
         System.out.println("Created " + userRepository.count() + " users");
+        
+        } catch (Exception e) {
+            System.err.println("Error during database initialization: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
