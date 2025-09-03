@@ -11,13 +11,13 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
     
-    List<Notification> findByUtilisateurId(Long utilisateurId);
+    List<Notification> findByUserId(Long userId);
     
-    @Query("SELECT n FROM Notification n WHERE n.utilisateur.id = :userId AND n.lu = false ORDER BY n.dateTimeEnvoi DESC")
+    @Query("SELECT n FROM Notification n WHERE n.user.id = :userId AND n.lu = false ORDER BY n.dateTimeEnvoi DESC")
     List<Notification> findUnreadByUserId(@Param("userId") Long userId);
     
-    @Query("SELECT n FROM Notification n WHERE n.utilisateur.id = :userId ORDER BY n.dateTimeEnvoi DESC")
+    @Query("SELECT n FROM Notification n WHERE n.user.id = :userId ORDER BY n.dateTimeEnvoi DESC")
     List<Notification> findByUserIdOrderByDateDesc(@Param("userId") Long userId);
     
-    long countByUtilisateurIdAndLuFalse(Long utilisateurId);
+    long countByUserIdAndLuFalse(Long userId);
 }

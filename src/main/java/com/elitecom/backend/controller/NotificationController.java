@@ -65,7 +65,7 @@ public class NotificationController {
 
     @GetMapping("/user/{userId}/count-unread")
     public ResponseEntity<Map<String, Long>> getUnreadCount(@PathVariable Long userId) {
-        long count = notificationRepository.countByUtilisateurIdAndLuFalse(userId);
+        long count = notificationRepository.countByUserIdAndLuFalse(userId);
         return ResponseEntity.ok(Map.of("unreadCount", count));
     }
 

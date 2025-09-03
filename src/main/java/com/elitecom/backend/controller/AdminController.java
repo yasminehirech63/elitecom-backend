@@ -5,7 +5,6 @@ import com.elitecom.backend.entity.User;
 import com.elitecom.backend.entity.Role;
 import com.elitecom.backend.entity.ValidationStatus;
 import com.elitecom.backend.repository.UserRepository;
-import com.elitecom.backend.repository.PractitionerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

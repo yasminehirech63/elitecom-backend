@@ -18,6 +18,21 @@ public interface RendezVousRepository extends JpaRepository<RendezVous, Long> {
     
     List<RendezVous> findByStatut(String statut);
     
+    // Date range queries
+    List<RendezVous> findByDateHeureDebutBetween(LocalDateTime startDate, LocalDateTime endDate);
+    
+    // Upcoming appointments for clients
+    List<RendezVous> findByClientIdAndDateHeureDebutAfterOrderByDateHeureDebutAsc(Long clientId, LocalDateTime dateTime);
+    
+    // Upcoming appointments for practitioners
+    List<RendezVous> findByPractitionerIdAndDateHeureDebutAfterOrderByDateHeureDebutAsc(Long practitionerId, LocalDateTime dateTime);
+    
+    // Time slot availability check
+    List<RendezVous> findByPractitionerIdAndDateHeureDebutAndIdNot(Long practitionerId, LocalDateTime dateTime, Long excludeId);
+    
+    // Check for overlapping appointments
+    List<RendezVous> findByPractitionerIdAndDateHeureDebutBetween(Long practitionerId, LocalDateTime startDate, LocalDateTime endDate);
+    
     @Query("SELECT r FROM RendezVous r WHERE r.client.id = :clientId AND r.statut = :statut")
     List<RendezVous> findByClientIdAndStatut(@Param("clientId") Long clientId, @Param("statut") String statut);
     
